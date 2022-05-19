@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Галерея для сайта на JavaScript</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div onMouseOver="btn_show()" onMouseOut="btn_noshow()" class="wrapper">
+			<script type="text/javascript">  
+				//Массив, в котором содержатся ссылки на изображения
+				var imageArray = [
+                    "1.PNG",
+					"2.PNG",
+                    "3.PNG",
+					"4.PNG",
+					"5.PNG",
+                    "6.PNG",
+					"7.PNG"
+				];
+				window.number = '0';
+				//Привязываем количество картинок к размеру массива
+				var imageCount = imageArray.length;		
+				function image(num){				
+					//Если выбрана следующая картинка
+					if(num == 1){
+						//Если это последняя картинка, то не увеличиваем счетчик number
+						if(number < imageCount - 1){						
+							number++;
+							document.getElementById('images').src = imageArray[number];
+							document.getElementById('num_img').innerHTML= number + 1 + '/' + imageCount;
+						}
+					}					 
+					else{  //Если выбрана предыдущая картинка					
+						//Если это первая картинка, то не уменьшаем счетчик number
+						if(number > 0){						
+							number--;
+							document.getElementById('images').src = imageArray[number];
+							document.getElementById('num_img').innerHTML= number + 1 + '/' + imageCount;
+						}
+					}
+				}				
+				//Функция для показа стрелочек
+				function btn_show(){
+					if(number != 0) document.getElementById('left').style.display='block';
+					if(number != imageCount - 1) document.getElementById('right').style.display='block';
+				}				
+				//Функция, которая прекращает показ стрелочек
+				function btn_noshow(){
+					document.getElementById('left').style.display='none';
+					document.getElementById('right').style.display='none';
+				}
+				//Выводим картинки
+				document.write('<img id="images" src="' + imageArray[0] + '">');
+			</script>
+		<!-- Стрелочка влево -->
+		<div id="left" onclick="image(0)" class="left_right"><img src="img/left.png"></div>
+		<!-- Стрелочка вправо -->
+		<div id="right" onclick="image(1)" class="left_right" style="margin-left: 1200px; position: absolute; display: none;"><img src="img/right.png"></div>
+	</div>
+	<center><p style="font-size: 18px;color: #333;font-weight: bold;" id="num_img"></p></center>
+	<center><span class="myButton" onclick="image(0)">&lt;</span> <span class="myButton" onclick="image(1)">&gt;</span></center>
+</body>
+</html>
